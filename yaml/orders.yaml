@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: eks-saga
+  name: eks-saga-orders
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: eks-saga-orders
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: eks-saga-orders
+    spec:
+      serviceAccountName: eks-saga
+      containers:
+        - name: eks-saga-orders
+          image: accountId.dkr.ecr.regionId.amazonaws.com/eks-saga/orders:0.0.0
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: eks-saga-orders
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+              protocol: "TCP"
+      nodeSelector:
+        role: db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: eks-saga
+  name: eks-saga-orders
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: eks-saga-orders
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: eks-saga
+  name: eks-saga-orders
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/group.name: eks-saga
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /ping
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+    alb.ingress.kubernetes.io/success-codes: '200'
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /eks-saga/orders
+            backend:
+              serviceName: eks-saga-orders
+              servicePort: 80

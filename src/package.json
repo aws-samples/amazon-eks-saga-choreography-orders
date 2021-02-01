@@ -1,0 +1,38 @@
+{
+  "name": "orders",
+  "version": "1.0.0",
+  "description": "Orders microservice for EKS Saga demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aws-samples/eks-saga-orders.git"
+  },
+  "keywords": [
+    "kubernetes",
+    "microservices",
+    "saga",
+    "amazon-eks",
+    "aws-sns",
+    "aws-sqs",
+    "aws-rds",
+    "nodejs"
+  ],
+  "author": "Nagesh Subrahmanyam",
+  "license": "MIT-0",
+  "bugs": {
+    "url": "https://github.com/aws-samples/eks-saga-orders/issues"
+  },
+  "homepage": "https://github.com/aws-samples/eks-saga-orders#readme",
+  "dependencies": {
+    "aws-sdk": "^2.809.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "moment-timezone": "^0.5.32",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "winston": "^3.3.3"
+  }
+}

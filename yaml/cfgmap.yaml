@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eks-saga-orders
+  namespace: eks-saga
+data:
+  TZ: "timeZone"
+  PORT: "8080"
+  REGION: "regionId"
+  DBHOST: "dbEndpoint"
+  DBPORT: "3306"
+  DBUSER: "pod_user"
+  DBNAME: "saga"
+  SUCC_TOPIC_ARN: "arn:aws:sns:regionId:accountId:eks-saga-orders-success"
+  FAIL_TOPIC_ARN: "arn:aws:sns:regionId:accountId:eks-saga-orders-fail"
