@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/aws-samples/eks-saga-orders#readme",
   "dependencies": {
-    "aws-sdk": "^2.809.0",
+    "aws-sdk": "^2.1354.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "moment-timezone": "^0.5.32",
